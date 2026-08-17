@@ -28,8 +28,13 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Client connected!")
 
-	// Send a welcome message
-	conn.WriteMessage(websocket.TextMessage, []byte("Welcome to the Go Echo WebSocket Server!"))
+	// Read the test environment variables
+	testEnv1 := os.Getenv("TEST_ENV_1")
+	testEnv2 := os.Getenv("TEST_ENV_2")
+
+	// Send a welcome message containing the environment variables
+	welcomeMsg := fmt.Sprintf("Welcome to the Go Echo WebSocket Server!\nTEST_ENV_1: %s\nTEST_ENV_2: %s", testEnv1, testEnv2)
+	conn.WriteMessage(websocket.TextMessage, []byte(welcomeMsg))
 
 	// Echo loop
 	for {
