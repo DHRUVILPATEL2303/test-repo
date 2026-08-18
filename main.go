@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -26,7 +27,7 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 
-	fmt.Println("Client connected!")
+	log.Println("Client connected to WebSocket!")
 
 	// Read the test environment variables
 	testEnv1 := os.Getenv("TEST_ENV_1")
@@ -56,16 +57,34 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Default HTTP Endpoint
+func handleDefault(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Received HTTP request on %s", r.URL.Path)
+	w.Write([]byte("Go App is running perfectly!"))
+}
+
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 
-	// Serve the WebSocket on the root path
-	http.HandleFunc("/", handleWebSocket)
+	// ---------------------------------------------------------
+	// Background loop to constantly generate logs
+	// This makes it easy to test your Real-Time Log Streaming!
+	// ---------------------------------------------------------
+	go func() {
+		for {
+			log.Println("[INFO] Application heartbeat: Running smoothly...")
+			time.Sleep(3 * time.Second)
+		}
+	}()
 
-	fmt.Printf("Starting WebSocket server on port %s...\n", port)
+	// Mount the routes
+	http.HandleFunc("/ws", handleWebSocket)
+	http.HandleFunc("/", handleDefault)
+
+	log.Printf("Starting HTTP & WebSocket server on port %s...\n", port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatal("ListenAndServe:", err)
 	}
