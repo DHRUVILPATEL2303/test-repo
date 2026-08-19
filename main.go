@@ -76,7 +76,7 @@ func main() {
 	go func() {
 		for {
 			
-				log.Println("[INFO] 3 webhook...")
+				log.Println("[INFO]teri gand bc..")
 			time.Sleep(3 * time.Second)
 		}
 	}()
