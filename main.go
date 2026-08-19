@@ -78,6 +78,11 @@ func main() {
 			log.Println("[INFO] Application heartbeat: Running smoothly...")
 
 			log.Println("[INFO] github auto webhook...")
+
+
+				log.Println("[INFO] Application heartbeat: Running smoothly...")
+
+				log.Println("[INFO] Application heartbeat: Running smoothly...")
 			time.Sleep(3 * time.Second)
 		}
 	}()
