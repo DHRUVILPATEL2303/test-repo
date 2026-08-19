@@ -75,14 +75,8 @@ func main() {
 	// ---------------------------------------------------------
 	go func() {
 		for {
-			log.Println("[INFO] Application heartbeat: Running smoothly...")
-
-			log.Println("[INFO] github auto webhook...")
-
-
-				log.Println("[INFO] Application heartbeat: Running smoothly...")
-
-				log.Println("[INFO] Application heartbeat: Running smoothly...")
+			
+				log.Println("[INFO] 3 webhook...")
 			time.Sleep(3 * time.Second)
 		}
 	}()
