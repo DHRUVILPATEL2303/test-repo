@@ -76,7 +76,7 @@ func main() {
 	go func() {
 		for {
 			
-				log.Println("[INFO]teri gand bc sorry sorry..")
+				log.Println("[INFO]teri gand bc sorry sorry ssss..")
 			time.Sleep(3 * time.Second)
 		}
 	}()
